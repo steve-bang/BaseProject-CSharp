@@ -24,6 +24,20 @@ namespace SBase.Entity
         /// </summary>
         public long Id { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public BaseEntity() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        public BaseEntity(long id) 
+        {
+            Id = id;
+        }
+
         /// <inheritdoc/>
         public virtual IDictionary<string, object> BuildDeleteByIdParameters()
         {
