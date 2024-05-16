@@ -20,7 +20,7 @@ namespace SBase.Entity
         public const string ColumnId = "ID";
 
         /// <summary>
-        /// Gets or sets the identifier value.
+        /// Gets or sets the identifier value.  
         /// </summary>
         public long Id { get; set; }
 

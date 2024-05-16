@@ -1,25 +1,59 @@
 ﻿using SBase.Filter;
-using System.Collections.ObjectModel;
+using SBase.Helper;
 
 namespace SBase.Pageable
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class CPageable<T>
     {
-        public IEnumerable<T> Items { get; set; } = Enumerable.Empty<T>();
+        /// <summary>
+        /// The list of the items.
+        /// </summary>
+        public IEnumerable<T> Contents { get; set; } = Enumerable.Empty<T>();
 
+        /// <summary>
+        /// The PageNumber value.
+        /// </summary>
         public int? PageNumber { get; set; }
 
+        /// <summary>
+        /// The PageSize value.
+        /// </summary>
         public int? PageSize { get; set; }
 
+        /// <summary>
+        /// The Total pages result value.
+        /// </summary>
         public int? TotalPages { get; set; }
 
-        public long TotalItems = 0;
+        /// <summary>
+        /// The Total items result value.
+        /// </summary>
+        public long TotalItems { get; set; } = 0;
 
+        public int NumberOfCurrentPage 
+        { 
+            get => CollectionHelper.IsPresent(Contents) ? Contents.Count() : 0; 
+            set => NumberOfCurrentPage = value; 
+        }
+
+        /// <summary>
+        /// Defaults the constructor.
+        /// </summary>
         public CPageable() {}
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="items">The list of the items.</param>
+        /// <param name="totalItems">The total of the item result.</param>
+        /// <param name="filter">The filter object.</param>
         public CPageable(IEnumerable<T> items, long totalItems, IBaseFilter filter)
         {
-            Items = items;
+            Contents = items;
             TotalItems = totalItems;
 
             if ( filter.PageNumber.HasValue && filter.PageSize.HasValue )
@@ -34,12 +68,36 @@ namespace SBase.Pageable
             }
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="items">The list of the items.</param>
+        /// <param name="totalItems">The total of the item result.</param>
         public CPageable(IEnumerable<T> items, long totalItems)
         {
-            Items = items;
+            Contents = items;
             TotalItems = totalItems;
         }
 
+        public CPageable<V> Map<V>(Func<T,V> lamdaExpress)
+        {
+            try
+            {
+                IEnumerable<V> transformedData = Contents.Select(lamdaExpress);
 
+                return new CPageable<V>()
+                {
+                    Contents = transformedData,
+                    TotalItems = this.TotalItems,
+                    PageNumber = this.PageNumber,
+                    PageSize = this.PageSize,
+                    TotalPages = this.TotalPages,
+                };
+            }
+            catch ( Exception )
+            {
+                throw;
+            }
+        }
     }
 }

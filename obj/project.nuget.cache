@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "d6yDilfp98KZGpZcqIaoMlQL35dXgjS3y9D5ATLbwXC1o80ouWlnrv6OpMArsXZn9AHNY47tpJUpLWL7ayslNQ==",
+  "dgSpecHash": "TTatJWOs7Un9qGbzV9HTXIM44W+c+zZ81BtSViDZY6qIDVbP3X3F44FNK9ZGdO4ALcblKWqKz2J6e/91wICllw==",
   "success": true,
   "projectFilePath": "D:\\personal\\SteveBang\\backend\\SBase\\SBase\\SBase.csproj",
   "expectedPackageFiles": [
@@ -10,9 +10,20 @@
     "C:\\Users\\DELL\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\system.data.sqlclient\\4.8.6\\system.data.sqlclient.4.8.6.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\system.data.sqlclient\\4.8.5\\system.data.sqlclient.4.8.5.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Data.SqlClient' 4.8.5 has a known high severity vulnerability, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
+      "libraryId": "System.Data.SqlClient",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

@@ -9,44 +9,44 @@ namespace SBase.Repository
         where T : IBaseEntity
         where D : IBaseDao<T>
     {
-        protected abstract D DAO { get; set; }
+        protected abstract D DataAccess { get; set; }
 
         public BaseRepository() { }
 
         public virtual long Create(T entity)
         {
-            return DAO.Create(entity);
+            return DataAccess.Create(entity);
         }
 
-        public virtual T GetById(long id)
+        public virtual T? GetById(long id)
         {
-            return DAO.GetById(id);
+            return DataAccess.GetById(id);
         }
 
         public virtual long Update(T entity)
         {
-            return DAO.Update(entity);
+            return DataAccess.Update(entity);
         }
 
-        public virtual long DeleteById(long id)
+        public virtual bool DeleteById(long id)
         {
-            return DAO.DeleteById(id);
+            return DataAccess.DeleteById(id) > 0;
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            return DAO.GetAll();
+            return DataAccess.GetAll();
         }
 
         public virtual IEnumerable<T> GetAll(IBaseFilter filter)
         {
-            return DAO.GetAll(filter);
+            return DataAccess.GetAll(filter);
         }
 
         public virtual CPageable<T> GetPageble(IBaseFilter filter)
         {
             long totalItems;
-            IEnumerable<T> entities = DAO.GetAll(filter, out totalItems);
+            IEnumerable<T> entities = DataAccess.GetAll(filter, out totalItems);
 
             return new CPageable<T>(entities, totalItems, filter);
         }

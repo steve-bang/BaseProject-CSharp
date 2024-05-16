@@ -24,7 +24,7 @@
         /// <summary>
         /// The @SortDirection filter.
         /// </summary>
-        public string SortDirection { get; set; }
+        public string SortOrder { get; set; }
 
         /// <summary>
         /// Build to parameters to excute the stored procedure.

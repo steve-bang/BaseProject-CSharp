@@ -1,0 +1,11 @@
+D:\personal\SteveBang\backend\SBase\publish\SBase.exe
+D:\personal\SteveBang\backend\SBase\publish\SBase.dll
+D:\personal\SteveBang\backend\SBase\publish\SBase.deps.json
+D:\personal\SteveBang\backend\SBase\publish\SBase.runtimeconfig.json
+D:\personal\SteveBang\backend\SBase\publish\SBase.pdb
+D:\personal\SteveBang\backend\SBase\publish\System.Data.SqlClient.dll
+D:\personal\SteveBang\backend\SBase\publish\runtimes\win-arm64\native\sni.dll
+D:\personal\SteveBang\backend\SBase\publish\runtimes\win-x64\native\sni.dll
+D:\personal\SteveBang\backend\SBase\publish\runtimes\win-x86\native\sni.dll
+D:\personal\SteveBang\backend\SBase\publish\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\personal\SteveBang\backend\SBase\publish\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

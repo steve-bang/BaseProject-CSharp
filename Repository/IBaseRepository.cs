@@ -19,7 +19,7 @@ namespace SBase.Repository
         /// </summary>
         /// <param name="entityId">The id of the record to get.</param>
         /// <returns>The entity.</returns>
-        T GetById(long id);
+        T? GetById(long id);
 
         /// <summary>
         /// Updates a entity in the database then returns the affected rows.
@@ -33,7 +33,7 @@ namespace SBase.Repository
         /// </summary>
         /// <param name="id">The Id of the entity to delete.</param>
         /// <returns>The affected rows.</returns>
-        long DeleteById(long id);
+        bool DeleteById(long id);
 
         /// <summary>
         ///  Gets all entities from the database.

@@ -21,7 +21,7 @@ namespace SBase.Dao
         /// </summary>
         /// <param name="entityId">The id of the record to get.</param>
         /// <returns>The entity.</returns>
-        T GetById (long id);
+        T? GetById (long id);
 
         /// <summary>
         /// Updates a record in the database then returns the affected rows.

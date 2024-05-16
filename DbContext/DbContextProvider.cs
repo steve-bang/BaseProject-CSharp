@@ -139,7 +139,7 @@ namespace SBase.DbContext
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        // Add the parameters to the command
+                        // Add the input parameters to the command
                         foreach (var parameter in parameters)
                         {
                             sqlCommand.Parameters.AddWithValue("@" + parameter.Key, parameter.Value);
@@ -160,6 +160,67 @@ namespace SBase.DbContext
 
                         // Sets the total rows output parameter
                         totalRows = Convert.ToInt64(outputParamTotalRows.Value);
+
+                    }
+                }
+                catch (SqlException)
+                {
+                    throw;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+
+                return dataTable;
+            }
+        }
+
+        /// <summary>
+        /// Execute a stored procedure with indexed params and return the results
+        /// </summary>
+        /// <param name="storedProcedureName">The stored procedure name</param>
+        /// <param name="parameters">The parameters of the stored procedure</param>
+        /// <param name="totalRows">The total rows output paramters.</param>
+        /// <returns>The results of the stored procedure</returns>
+        public static DataTable ExecuteStoredProcedure(
+            string storedProcedureName,
+            IDictionary<string, object> parameters,
+            string outputParam,
+            out long outputValue
+        )
+        {
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                var dataTable = new DataTable();
+
+                try
+                {
+                    using (var sqlCommand = new SqlCommand(storedProcedureName, sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        // Add the parameters to the command
+                        foreach (var parameter in parameters)
+                        {
+                            sqlCommand.Parameters.AddWithValue("@" + parameter.Key, parameter.Value);
+                        }
+
+                        // Add output parameter
+                        SqlParameter outputParamTotalRows = new SqlParameter("@" + outputParam, SqlDbType.BigInt);
+                        outputParamTotalRows.Direction = ParameterDirection.Output;
+
+                        sqlCommand.Parameters.Add(outputParamTotalRows);
+
+                        sqlConnection.Open();
+
+                        using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
+                        {
+                            dataTable.Load(sqlDataReader);
+                        }
+
+                        // Sets the total rows output parameter
+                        outputValue = Convert.ToInt64(outputParamTotalRows.Value);
 
                     }
                 }

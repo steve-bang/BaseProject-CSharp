@@ -1,12 +1,7 @@
 ﻿using SBase.DbContext;
 using SBase.Entity;
 using SBase.Filter;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SBase.Dao
 {
@@ -49,7 +44,7 @@ namespace SBase.Dao
         protected abstract T ConvertDataRowToEntity(DataRow dataRow);
 
         /// <inheritdoc/>
-        public long Create(T entity)
+        public virtual long Create(T entity)
         {
             try
             {
@@ -69,7 +64,7 @@ namespace SBase.Dao
         }
 
         /// <inheritdoc/>
-        public long DeleteById(long id)
+        public virtual long DeleteById(long id)
         {
             try
             {
@@ -91,17 +86,18 @@ namespace SBase.Dao
         }
 
         /// <inheritdoc/>
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public IEnumerable<T> GetAll(IBaseFilter filter)
+        public virtual IEnumerable<T> GetAll(IBaseFilter filter)
         {
             try
             {
-                DataTable dataTable = DbContextProvider.ExecuteStoredProcedure(ListProcedureName, filter.BuildToPatameters());
+                long totalItems = 0;
+                DataTable dataTable = DbContextProvider.ExecuteStoredProcedure(ListProcedureName, filter.BuildToPatameters(), out totalItems);
 
                 if (dataTable == null)
                     return Enumerable.Empty<T>();
@@ -115,7 +111,7 @@ namespace SBase.Dao
         }
 
         /// <inheritdoc/>
-        public IEnumerable<T> GetAll(IBaseFilter filter, out long totalItems)
+        public virtual IEnumerable<T> GetAll(IBaseFilter filter, out long totalItems)
         {
             try
             {
@@ -133,7 +129,7 @@ namespace SBase.Dao
         }
 
         /// <inheritdoc/>
-        public T GetById(long id)
+        public virtual T? GetById(long id)
         {
             try
             {
@@ -144,7 +140,7 @@ namespace SBase.Dao
                 if (dataTable == null)
                     return Enumerable.Empty<T>().First();
                 else
-                    return dataTable.AsEnumerable().Select(ConvertDataRowToEntity).First();
+                    return dataTable.AsEnumerable().Select(ConvertDataRowToEntity).FirstOrDefault();
             }
             catch (Exception)
             {
@@ -153,7 +149,7 @@ namespace SBase.Dao
         }
 
         /// <inheritdoc/>
-        public long Update(T entity)
+        public virtual long Update(T entity)
         {
             try
             {

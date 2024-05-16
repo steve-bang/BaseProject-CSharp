@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SBase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a23d07c19f8c8adee4d39572a120143038c44286")]
 [assembly: System.Reflection.AssemblyProductAttribute("SBase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SBase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

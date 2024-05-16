@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SBase.Filter
+﻿namespace SBase.Filter
 {
     public class BaseFilter : IBaseFilter
     {
@@ -27,7 +21,7 @@ namespace SBase.Filter
         public string SortDataField { get; set; } = string.Empty;
 
         /// <inheritdoc/>
-        public string SortDirection { get; set; } = string.Empty;
+        public string SortOrder { get; set; } = string.Empty;
 
         /// <inheritdoc/>
         public virtual IDictionary<string, object> BuildToPatameters()
@@ -53,9 +47,9 @@ namespace SBase.Filter
             }
 
             // Checks if the filter has a SortDirection.
-            if (string.IsNullOrEmpty(SortDirection) == false)
+            if (string.IsNullOrEmpty(SortOrder) == false)
             {
-                parameters.Add(ParamSortDirection, SortDirection);
+                parameters.Add(ParamSortDirection, SortOrder);
             }
 
             return parameters;
