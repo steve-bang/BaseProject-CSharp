@@ -21,6 +21,11 @@ namespace SBase.DbContext
         /// </summary>
         public static string _outParamterTotalRows { get; set; } = "Total_Rows";
 
+        /// <summary>
+        /// Read the data from the database.
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <returns></returns>
         private static DataTable ReadData( SqlCommand sqlCommand )
         {
             try
@@ -28,6 +33,30 @@ namespace SBase.DbContext
                 var dataTable = new DataTable();
 
                 using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
+                {
+                    dataTable.Load(sqlDataReader);
+                }
+
+                return dataTable;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Read the data from the database.
+        /// </summary>
+        /// <param name="sqlCommand">The sql command</param>
+        /// <returns></returns>
+        private static async Task<DataTable> ReadDataAsync(SqlCommand sqlCommand)
+        {
+            try
+            {
+                var dataTable = new DataTable();
+
+                using (SqlDataReader sqlDataReader = await sqlCommand.ExecuteReaderAsync())
                 {
                     dataTable.Load(sqlDataReader);
                 }
@@ -75,6 +104,39 @@ namespace SBase.DbContext
         }
 
         /// <summary>
+        /// Execute a stored procedure and return the results.
+        /// </summary>
+        /// <param name="storedProcedureName">The stored procedure name</param>
+        /// <returns>The results of the stored procedure</returns>
+        public static async Task<DataTable> ExecuteAsync(string storedProcedureName)
+        {
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                DataTable dataTable = new DataTable();
+                try
+                {
+                    using (var sqlCommand = new SqlCommand(storedProcedureName, sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        await sqlConnection.OpenAsync();
+
+                        dataTable = await ReadDataAsync(sqlCommand);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+
+                return dataTable;
+            }
+        }
+
+        /// <summary>
         /// Execute a stored procedure with indexed params and return the results
         /// </summary>
         /// <param name="storedProcedureName">The stored procedure name</param>
@@ -102,6 +164,48 @@ namespace SBase.DbContext
 
                         sqlConnection.Open();
                         dataTable = ReadData(sqlCommand);
+                    }
+                }
+                catch (SqlException)
+                {
+                    throw;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+                return dataTable;
+            }
+        }
+
+        /// <summary>
+        /// Execute a stored procedure with indexed params and return the results
+        /// </summary>
+        /// <param name="storedProcedureName">The stored procedure name</param>
+        /// <param name="parameters">The parameters of the stored procedure</param>
+        /// <returns>The results of the stored procedure</returns>
+        public static async Task<DataTable> ExecuteStoredProcedureAsync(
+            string storedProcedureName,
+            IDictionary<string, object> parameters
+        )
+        {
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                var dataTable = new DataTable();
+                try
+                {
+                    using (var sqlCommand = new SqlCommand(storedProcedureName, sqlConnection))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        // Add the parameters to the command
+                        foreach (var parameter in parameters)
+                        {
+                            sqlCommand.Parameters.AddWithValue("@" + parameter.Key, parameter.Value);
+                        }
+
+                        await sqlConnection.OpenAsync();
+                        dataTable = await ReadDataAsync(sqlCommand);
                     }
                 }
                 catch (SqlException)

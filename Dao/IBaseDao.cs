@@ -17,11 +17,25 @@ namespace SBase.Dao
         long Create(T entity);
 
         /// <summary>
+        /// Creates a new record in the database then returns the id of the new record.
+        /// </summary>
+        /// <param name="entity">The entity to create.</param>
+        /// <returns>The id of the new record.</returns>
+        Task<long> CreateAsync(T entity);
+
+        /// <summary>
         /// Gets a record from the database by an id, then converts it to an entity.
         /// </summary>
         /// <param name="entityId">The id of the record to get.</param>
         /// <returns>The entity.</returns>
         T? GetById (long id);
+
+        /// <summary>
+        /// Gets a record from the database by an id, then converts it to an entity.
+        /// </summary>
+        /// <param name="entityId">The id of the record to get.</param>
+        /// <returns>The entity.</returns>
+        Task<T?> GetByIdAsync(long id);
 
         /// <summary>
         /// Updates a record in the database then returns the affected rows.
@@ -38,6 +52,13 @@ namespace SBase.Dao
         long DeleteById (long id);
 
         /// <summary>
+        /// Deletes a record from the database then returns the affected rows.
+        /// </summary>
+        /// <param name="id">The Id of the entity to delete.</param>
+        /// <returns>The affected rows.</returns>
+        Task<long> DeleteByIdAsync(long id);
+
+        /// <summary>
         ///  Gets all records from the database.
         /// </summary>
         /// <returns>The entities</returns>
@@ -49,6 +70,13 @@ namespace SBase.Dao
         /// <param name="filter">The filter object to apply.</param>
         /// <returns>The entities.</returns>
         IEnumerable<T> GetAll(IBaseFilter filter);
+
+        /// <summary>
+        /// Gets all records from the database with the given filter
+        /// </summary>
+        /// <param name="filter">The filter object to apply.</param>
+        /// <returns>The entities.</returns>
+        Task<IEnumerable<T>> GetAllAsync(IBaseFilter filter);
 
         /// <summary>
         /// Gets all records from the database with the given filter

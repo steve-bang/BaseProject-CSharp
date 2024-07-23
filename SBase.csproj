@@ -5,6 +5,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>Steve.Base</PackageId>
+    <Title>Steve Base </Title>
+    <Authors>Steve</Authors>
+    <Description>The base project for every project.</Description>
+    <PackageTags>1.0.0</PackageTags>
+    <PackageReleaseNotes>Init project</PackageReleaseNotes>
+    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

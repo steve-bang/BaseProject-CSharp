@@ -64,6 +64,26 @@ namespace SBase.Dao
         }
 
         /// <inheritdoc/>
+        public virtual async Task<long> CreateAsync(T entity)
+        {
+            try
+            {
+                DataTable dataTable = await DbContextProvider.ExecuteStoredProcedureAsync(InsertProcedureName, entity.BuildInsertParameters());
+
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    return (long)dataTable.Rows[0][0];
+                }
+
+                return 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <inheritdoc/>
         public virtual long DeleteById(long id)
         {
             try
@@ -71,6 +91,28 @@ namespace SBase.Dao
                 IBaseEntity baseEntity = new BaseEntity(id);
 
                 DataTable dataTable = DbContextProvider.ExecuteStoredProcedure(DeleteProcedureName, baseEntity.BuildDeleteByIdParameters());
+
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    return (long)dataTable.Rows[0][0];
+                }
+
+                return 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<long> DeleteByIdAsync(long id)
+        {
+            try
+            {
+                IBaseEntity baseEntity = new BaseEntity(id);
+
+                DataTable dataTable = await DbContextProvider.ExecuteStoredProcedureAsync(DeleteProcedureName, baseEntity.BuildDeleteByIdParameters());
 
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
@@ -111,6 +153,25 @@ namespace SBase.Dao
         }
 
         /// <inheritdoc/>
+        public virtual async Task<IEnumerable<T>> GetAllAsync(IBaseFilter filter)
+        {
+            try
+            {
+                long totalItems = 0;
+                DataTable dataTable = await Task.Run(() => DbContextProvider.ExecuteStoredProcedure(ListProcedureName, filter.BuildToPatameters(), out totalItems));
+
+                if (dataTable == null)
+                    return Enumerable.Empty<T>();
+                else
+                    return dataTable.AsEnumerable().Select(ConvertDataRowToEntity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <inheritdoc/>
         public virtual IEnumerable<T> GetAll(IBaseFilter filter, out long totalItems)
         {
             try
@@ -136,6 +197,26 @@ namespace SBase.Dao
                 IBaseEntity baseEntity = new BaseEntity(id);
 
                 DataTable dataTable = DbContextProvider.ExecuteStoredProcedure(GetProcedureName, baseEntity.BuildGetByIdParameters());
+
+                if (dataTable == null)
+                    return Enumerable.Empty<T>().First();
+                else
+                    return dataTable.AsEnumerable().Select(ConvertDataRowToEntity).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<T?> GetByIdAsync(long id)
+        {
+            try
+            {
+                IBaseEntity baseEntity = new BaseEntity(id);
+
+                DataTable dataTable = await DbContextProvider.ExecuteStoredProcedureAsync(GetProcedureName, baseEntity.BuildGetByIdParameters());
 
                 if (dataTable == null)
                     return Enumerable.Empty<T>().First();
