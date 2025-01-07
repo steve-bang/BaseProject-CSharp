@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Steve.Base</id>
+    <version>1.0.0</version>
+    <title>Steve Base</title>
+    <authors>Steve</authors>
+    <description>The base project for every project.</description>
+    <releaseNotes>Init project</releaseNotes>
+    <tags>1.0.0</tags>
+    <repository type="git" commit="ba16235ac73165b781ca412b6c0dd1a6060c7780" />
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="System.Data.SqlClient" version="4.8.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\personal\SteveBang\backend\SBase\SBase\bin\Release\net6.0\SBase.runtimeconfig.json" target="lib\net6.0\SBase.runtimeconfig.json" />
+    <file src="D:\personal\SteveBang\backend\SBase\SBase\bin\Release\net6.0\SBase.dll" target="lib\net6.0\SBase.dll" />
+  </files>
+</package>

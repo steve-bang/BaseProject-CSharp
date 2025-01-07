@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("The base project for every project.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae894ea6cfda51760ba9cd810b3d66bee0f4d668")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba16235ac73165b781ca412b6c0dd1a6060c7780")]
 [assembly: System.Reflection.AssemblyProductAttribute("SBase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SBase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0")]

@@ -14,9 +14,10 @@ D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.GeneratedMSBu
 D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.AssemblyInfoInputs.cache
 D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.AssemblyInfo.cs
 D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.csproj.CoreCompileInputs.cache
-D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.csproj.CopyComplete
 D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.dll
 D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\refint\SBase.dll
 D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.pdb
 D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.genruntimeconfig.cache
 D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\ref\SBase.dll
+D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.sourcelink.json
+D:\personal\SteveBang\backend\SBase\SBase\obj\Release\net6.0\SBase.csproj.Up2Date

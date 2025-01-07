@@ -27,23 +27,52 @@ namespace SBase.Response
         public int HttpCode { get; set; } = (int)HttpStatusCode.InternalServerError;
 
         /// <summary>
+        /// The error code of the error.
+        /// </summary>
+        public string? Code { get; set; }
+
+        /// <summary>
         /// The message of the error.
         /// </summary>
         public string Message { get; set; } = string.Empty;
 
         /// <summary>
-        /// The Timestamp of the error.
-        /// </summary>
-        public string Timestamp { get; set; } = DateTime.UtcNow.ToString();
-
-        /// <summary>
         /// The path of the error.
         /// </summary>
-        public string Path { get; set; }
+        public string? Path { get; set; }
 
         /// <summary>
         /// The description of the error.
         /// </summary>
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
+
+        public ErrorJson()
+        {
+
+        }
+
+        public ErrorJson(int httpCode, string code, string message, string description)
+        {
+            HttpCode = httpCode;
+            Code = code;
+            Message = message;
+            Description = description;
+        }
+
+        public ErrorJson(HttpStatusCode httpCode, string code, string message, string description)
+        {
+            HttpCode = (int)httpCode;
+            Code = code;
+            Message = message;
+            Description = description;
+        }
+
+        public ErrorJson(HttpStatusCode httpCode, string code, string message)
+        {
+            HttpCode = (int)httpCode;
+            Code = code;
+            Message = message;
+        }
+
     }
 }

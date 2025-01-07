@@ -27,7 +27,9 @@ namespace SBase.Pageable
         /// <summary>
         /// The Total pages result value.
         /// </summary>
-        public int? TotalPages { get; set; }
+        public int? TotalPages { 
+            get => PageSize.HasValue && PageSize.Value > 0 ? (int)(TotalItems - 1) / PageSize.Value + 1 : 0;
+        }
 
         /// <summary>
         /// The Total items result value.
@@ -61,10 +63,10 @@ namespace SBase.Pageable
                 PageNumber = filter.PageNumber.Value;
                 PageSize = filter.PageSize.Value;
                 
-                if ( PageSize.Value > 0 )
+               /* if ( PageSize.Value > 0 )
                 {
                     TotalPages = (int)(totalItems - 1) / PageSize.Value + 1;
-                }
+                }*/
             }
         }
 
@@ -91,10 +93,38 @@ namespace SBase.Pageable
                     TotalItems = this.TotalItems,
                     PageNumber = this.PageNumber,
                     PageSize = this.PageSize,
-                    TotalPages = this.TotalPages,
+                    //TotalPages = this.TotalPages,
                 };
             }
             catch ( Exception )
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Maps the content of the pageable.
+        /// </summary>
+        /// <typeparam name="V"></typeparam>
+        /// <param name="lamdaExpress"></param>
+        /// <returns></returns>
+        public async Task<CPageable<V>> MapAsync<V>(Func<T, Task<V>> lamdaExpress)
+        {
+            try
+            {
+                var tasks = Contents.Select(lamdaExpress);
+
+                var contents = await Task.WhenAll(tasks);
+
+                return new CPageable<V>
+                {
+                    Contents = contents,
+                    TotalItems = TotalItems,
+                    PageNumber = PageNumber,
+                    PageSize = PageSize,
+                };
+            }
+            catch (Exception)
             {
                 throw;
             }
